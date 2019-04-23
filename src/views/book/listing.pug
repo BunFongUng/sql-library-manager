@@ -1,0 +1,36 @@
+extends ../layout.pug 
+
+block content 
+    .container
+        h1 Books    
+        .row
+            .col-md-3
+                p.no-margin-top-botton.margin-top-8px
+                    a.button(href="/books/new") Create New Book
+            .col-md-6
+                form.form-inline.my-2.my-lg-0(action="/books", method="get")
+                    input.form-control.mr-sm-2(type="text", placeholder="Search", name="q")
+                    button.btn.btn-outline-success.my-2.my-sm-0(type="submit") Search
+
+        table
+            thead
+                tr
+                    th Title
+                    th Author 
+                    th Genre
+                    th Year
+            tbody
+                each book in books
+                    tr
+                        td
+                            a(href=`/books/${book.id}`)= book.title
+                        td= book.author
+                        td= book.genre
+                        td= book.year
+                        
+        if pages.length > 1
+            ul.pagination
+                each page in pages
+                    li.page-item
+                        a.page-link(href=page.url)=page.number
+    
